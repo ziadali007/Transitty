@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    internal class Leave
+    public class Leave : BaseEntity
     {
     }
 }

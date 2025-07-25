@@ -1,5 +1,7 @@
 
+using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 using Presistence.Data;
 
 namespace Transitty
@@ -16,7 +18,8 @@ namespace Transitty
 
             builder.Services.AddDbContext<TransityDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
