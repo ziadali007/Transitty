@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Role : BaseEntity
+    public class BaseEntity
     {
     }
 }

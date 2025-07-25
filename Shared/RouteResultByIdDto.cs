@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Shared
 {
-    public class Route : BaseEntity
+    public class RouteResultByIdDto
     {
         public int RouteId { get; set; }
 
@@ -24,9 +25,5 @@ namespace Domain.Models
 
 
         public IEnumerable<Trip> Trips { get; set; }
-
-
-
-
     }
 }

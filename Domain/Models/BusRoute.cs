@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    internal class BusRoute
+    public class BusRoute : BaseEntity
     {
     }
 }

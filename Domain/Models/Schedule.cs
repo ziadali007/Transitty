@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Schedule
+    public class Schedule : BaseEntity
     {
         public int ScheduleId { get; set; }
 

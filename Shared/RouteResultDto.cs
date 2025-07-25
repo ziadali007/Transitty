@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Shared
 {
-    public class Route : BaseEntity
+    public class RouteResultDto
     {
         public int RouteId { get; set; }
 
@@ -16,15 +16,6 @@ namespace Domain.Models
 
 
         public string EndPoint { get; set; }
-
-
-        public IEnumerable<Bus> Buses { get; set; }
-
-        public IEnumerable<BusStop> BusesStop { get; set; }
-
-
-        public IEnumerable<Trip> Trips { get; set; }
-
 
 
 

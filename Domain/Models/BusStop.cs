@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class BusStop
+    public class BusStop : BaseEntity
     {
         public int StopId { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class RouteTiming
+    public class RouteTiming : BaseEntity
     {
     }
 }
