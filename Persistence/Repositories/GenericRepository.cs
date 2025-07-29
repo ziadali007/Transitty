@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Contracts;
+using DomainRoute = Domain.Models.Route;
 using Domain.Models;
 using System.Linq.Expressions;
 using Presistence.Data;
@@ -23,10 +24,11 @@ namespace Persistence.Repositories
         {
             IQueryable<T>? query = _context.Set<T>().AsNoTracking();
 
-            if (typeof(T) == typeof(Route))
+            if (typeof(T) == typeof(DomainRoute))
             {
                 query = _context.Routes
-                                .Include(r => r.BusesStop)
+                                .Include(r => r.RouteStops)
+                                .ThenInclude(rs => rs.BusStop)
                                 .Include(r => r.Trips)
                                 .Include(r => r.Buses)
                                 .AsNoTracking() as IQueryable<T>;
@@ -62,10 +64,11 @@ namespace Persistence.Repositories
 
         public async Task<T?> GetByIdAsync(int id)
         {
-            if (typeof(T) == typeof(Route))
+            if (typeof(T) == typeof(DomainRoute))
             {
                 return await _context.Routes
-                   .Include(r => r.BusesStop)
+                   .Include(r => r.RouteStops)
+                   .ThenInclude(rs => rs.BusStop)
                    .Include(r => r.Trips)
                    .Include(r => r.Buses)
                    .AsNoTracking()

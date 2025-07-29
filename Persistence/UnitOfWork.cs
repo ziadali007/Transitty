@@ -14,16 +14,16 @@ namespace Persistence
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TransityDbContext _context;
-        private readonly ConcurrentDictionary<string, object> _repositories;
+        private readonly ConcurrentDictionary<Type, object> _repositories;
 
         public UnitOfWork(TransityDbContext context)
         {
             _context = context;
-            _repositories = new ConcurrentDictionary<string, object>();
+            _repositories = new ConcurrentDictionary<Type, object>();
         }
         public IGenericRepository<T> GetRepository<T>() where T : BaseEntity
         {
-            return (IGenericRepository<T>)_repositories.GetOrAdd(typeof(T).Name, _ => new GenericRepository<T>(_context));
+            return (IGenericRepository<T>)_repositories.GetOrAdd(typeof(T), _ => new GenericRepository<T>(_context));
         }
 
         public async Task<int> SaveChangesAsync()
