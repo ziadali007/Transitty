@@ -16,6 +16,18 @@ namespace Presistence.Data.Configurations
         {
 
             builder.HasKey(rs => new { rs.RouteId, rs.StopId });
+
+            builder.HasOne(rs => rs.Route)
+                .WithMany(r => r.RouteStops)
+                .HasForeignKey(rs => rs.RouteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(rs => rs.BusStop)
+                .WithMany(bs => bs.RouteStops)
+                .HasForeignKey(rs => rs.StopId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

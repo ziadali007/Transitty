@@ -18,12 +18,9 @@ namespace Domain.Models
         public string EndPoint { get; set; }
 
 
-        public IEnumerable<Bus> Buses { get; set; }
-
-        public IEnumerable<BusStop> BusesStop { get; set; }
-
-
-        public IEnumerable<Trip> Trips { get; set; }
+        public ICollection<Bus> Buses { get; set; }
+        public ICollection<RouteStop> RouteStops { get; set; }
+        public ICollection<Trip> Trips { get; set; }
 
 
 

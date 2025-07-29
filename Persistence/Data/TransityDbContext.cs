@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
+using Persistence;
 namespace Presistence.Data
 {
     public class TransityDbContext : DbContext
@@ -28,5 +29,9 @@ namespace Presistence.Data
         public DbSet<RouteStopTiming> RouteStopTimings { get; set; }
 
         public DbSet<Schedule> Schedules { get; set; }
+
+        public DbSet<Seat> Seats { get; set; }
+
+        public DbSet<Ticket> Ticket { get; set; }
     }
 }

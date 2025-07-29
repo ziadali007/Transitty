@@ -25,5 +25,8 @@ namespace Domain.Models
 
 
         public IEnumerable<RouteStopTiming> StopTimings { get; set; }
+
+
+        public IEnumerable<Seat> Seats { get; set; }
     }
 }

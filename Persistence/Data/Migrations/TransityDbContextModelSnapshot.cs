@@ -8,7 +8,7 @@ using Presistence.Data;
 
 #nullable disable
 
-namespace Presistence.Data.Migrations
+namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(TransityDbContext))]
     partial class TransityDbContextModelSnapshot : ModelSnapshot
@@ -63,16 +63,11 @@ namespace Presistence.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RouteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StopName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StopId");
-
-                    b.HasIndex("RouteId");
 
                     b.ToTable("BusStops");
                 });
@@ -134,15 +129,12 @@ namespace Presistence.Data.Migrations
                     b.Property<int>("StopId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BusStopStopId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StopOrder")
                         .HasColumnType("int");
 
                     b.HasKey("RouteId", "StopId");
 
-                    b.HasIndex("BusStopStopId");
+                    b.HasIndex("StopId");
 
                     b.ToTable("RouteStops");
                 });
@@ -208,6 +200,61 @@ namespace Presistence.Data.Migrations
                     b.ToTable("Schedules");
                 });
 
+            modelBuilder.Entity("Domain.Models.Seat", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+
+                    b.Property<int>("BusId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsWindow")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SeatNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SeatId");
+
+                    b.HasIndex("BusId");
+
+                    b.ToTable("Seats");
+                });
+
+            modelBuilder.Entity("Domain.Models.Ticket", b =>
+                {
+                    b.Property<int>("TicketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
+
+                    b.Property<DateTime>("BookingTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketId");
+
+                    b.HasIndex("SeatId");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("Ticket");
+                });
+
             modelBuilder.Entity("Domain.Models.Trip", b =>
                 {
                     b.Property<int>("TripId")
@@ -258,24 +305,17 @@ namespace Presistence.Data.Migrations
                     b.Navigation("Route");
                 });
 
-            modelBuilder.Entity("Domain.Models.BusStop", b =>
-                {
-                    b.HasOne("Domain.Models.Route", null)
-                        .WithMany("BusesStop")
-                        .HasForeignKey("RouteId");
-                });
-
             modelBuilder.Entity("Domain.Models.RouteStop", b =>
                 {
-                    b.HasOne("Domain.Models.BusStop", "BusStop")
+                    b.HasOne("Domain.Models.Route", "Route")
                         .WithMany("RouteStops")
-                        .HasForeignKey("BusStopStopId")
+                        .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Route", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteId")
+                    b.HasOne("Domain.Models.BusStop", "BusStop")
+                        .WithMany("RouteStops")
+                        .HasForeignKey("StopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -322,6 +362,36 @@ namespace Presistence.Data.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("Domain.Models.Seat", b =>
+                {
+                    b.HasOne("Domain.Models.Bus", "Bus")
+                        .WithMany("Seats")
+                        .HasForeignKey("BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bus");
+                });
+
+            modelBuilder.Entity("Domain.Models.Ticket", b =>
+                {
+                    b.HasOne("Domain.Models.Seat", "Seat")
+                        .WithMany("Tickets")
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Trip", "Trip")
+                        .WithMany("Tickets")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Seat");
+
+                    b.Navigation("Trip");
+                });
+
             modelBuilder.Entity("Domain.Models.Trip", b =>
                 {
                     b.HasOne("Domain.Models.Bus", "Bus")
@@ -359,6 +429,8 @@ namespace Presistence.Data.Migrations
 
             modelBuilder.Entity("Domain.Models.Bus", b =>
                 {
+                    b.Navigation("Seats");
+
                     b.Navigation("StopTimings");
 
                     b.Navigation("Trips");
@@ -384,9 +456,19 @@ namespace Presistence.Data.Migrations
                 {
                     b.Navigation("Buses");
 
-                    b.Navigation("BusesStop");
+                    b.Navigation("RouteStops");
 
                     b.Navigation("Trips");
+                });
+
+            modelBuilder.Entity("Domain.Models.Seat", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Domain.Models.Trip", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
