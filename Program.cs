@@ -2,8 +2,10 @@
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Repositories;
 using Presistence.Data;
-
+using Services;
+using Services.Abstractions;
 namespace Transitty
 {
     public class Program
@@ -18,8 +20,9 @@ namespace Transitty
 
             builder.Services.AddDbContext<TransityDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IServiceManager, ServiceManager>();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

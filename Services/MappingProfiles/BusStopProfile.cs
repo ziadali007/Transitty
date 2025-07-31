@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 
 namespace Services.MappingProfiles
 {
-    public class RouteProfile : Profile
+    public class BusStopProfile : Profile
     {
-        public RouteProfile()
+        public BusStopProfile() 
         {
-            CreateMap<Route, RouteResultDto>().ReverseMap();
 
-            CreateMap<Route, RouteResultByIdDto>().ReverseMap();
+
+            CreateMap<BusStop,BusStopResultDto>().ReverseMap();
+
+            CreateMap<BusStop,BusResultByIdDto>().ReverseMap();
+        
+        
         }
     }
 }

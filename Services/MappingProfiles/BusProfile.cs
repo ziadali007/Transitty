@@ -6,16 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Transitty.Shared;
 
 namespace Services.MappingProfiles
 {
-    public class RouteProfile : Profile
+    public class BusProfile : Profile
     {
-        public RouteProfile()
+        public BusProfile()
         {
-            CreateMap<Route, RouteResultDto>().ReverseMap();
+            CreateMap<Bus,BusResultDto>().ReverseMap();
 
-            CreateMap<Route, RouteResultByIdDto>().ReverseMap();
+            CreateMap<Bus, BusResultByIdDto>().ReverseMap();
         }
     }
 }

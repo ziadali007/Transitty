@@ -18,9 +18,9 @@ namespace Domain.Models
         public string EndPoint { get; set; }
 
 
-        public ICollection<Bus> Buses { get; set; }
-        public ICollection<RouteStop> RouteStops { get; set; }
-        public ICollection<Trip> Trips { get; set; }
+        public ICollection<Bus>? Buses { get; set; }
+        public ICollection<RouteStop>? RouteStops { get; set; }
+        public ICollection<Trip>? Trips { get; set; }
 
 
 

@@ -4,19 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Shared
 {
-    public class BusStop : BaseEntity
+    public class BusStopResultDto
     {
         public int StopId { get; set; }
 
         public string StopName { get; set; }
 
         public string Location { get; set; }
-
-
-        public IEnumerable<RouteStop>? RouteStops { get; set; }
-
-        public IEnumerable<RouteStopTiming>? RouteStopsTimings { get; set; }
     }
 }

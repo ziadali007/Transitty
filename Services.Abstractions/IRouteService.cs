@@ -13,13 +13,13 @@ namespace Services.Abstractions
     {
         Task<IEnumerable<RouteResultDto>> GetAllRoutesAsync();
 
-        Task<IEnumerable<RouteResultByIdDto>> GetRouteByIdAsync(int id);
+        Task<RouteResultByIdDto?> GetRouteByIdAsync(int id);
 
         Task AddRouteAsync(RouteResultByIdDto route);
 
-        void UpdateRoute(RouteResultByIdDto route);
+        Task UpdateRoute(RouteResultByIdDto route);
 
-        void DeleteRoute(int routeId);
+        Task DeleteRouteAsync(int routeId);
 
 
         Task<bool> RouteExistsAsync(Expression<Func<Route, bool>> predicate);

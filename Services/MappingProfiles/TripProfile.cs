@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Services.MappingProfiles
 {
-    public class RouteProfile : Profile
+    public class TripProfile : Profile
     {
-        public RouteProfile()
+        public TripProfile()
         {
-            CreateMap<Route, RouteResultDto>().ReverseMap();
+            CreateMap<Trip,TripResultDto>().ReverseMap();
+            CreateMap<Trip, TripResultByIdDto>().ReverseMap();
 
-            CreateMap<Route, RouteResultByIdDto>().ReverseMap();
         }
     }
 }

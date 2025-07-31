@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Shared
 {
-    public class BusStop : BaseEntity
+    public class BusStopResultByIdDto
     {
         public int StopId { get; set; }
 
