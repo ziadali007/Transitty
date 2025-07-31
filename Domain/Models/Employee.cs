@@ -23,8 +23,8 @@ namespace Domain.Models
 
         public string ContactInfo { get; set; }
 
-        public IEnumerable<Schedule> Schedules { get; set; }
-        public IEnumerable<Trip> TripsAsDriver { get; set; }
-        public IEnumerable<Trip> TripsAsConductor { get; set; }
+        public IEnumerable<Schedule>? Schedules { get; set; }
+        public IEnumerable<Trip>? TripsAsDriver { get; set; }
+        public IEnumerable<Trip>? TripsAsConductor { get; set; }
     }
 }

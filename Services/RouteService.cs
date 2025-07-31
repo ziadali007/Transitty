@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Contracts;
+using Domain.Exceptions;
 using Domain.Models;
 using Services.Abstractions;
 using Shared;
@@ -14,34 +15,58 @@ namespace Services
 {
     public class RouteService(IMapper mapper,IUnitOfWork unitOfWork) : IRouteService
     {
-        public Task<IEnumerable<RouteResultDto>> GetAllRoutesAsync()
+        public async Task<IEnumerable<RouteResultDto>> GetAllRoutesAsync()
         {
-            throw new NotImplementedException();
+            var routes= await unitOfWork.GetRepository<Route>().GetAllAsync();
+            var result = mapper.Map<IEnumerable<RouteResultDto>>(routes);
+            return result;
+
         }
 
-        public Task<IEnumerable<RouteResultByIdDto>> GetRouteByIdAsync(int id)
+        public async Task<RouteResultByIdDto?> GetRouteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var route =await unitOfWork.GetRepository<Route>().GetByIdAsync(id);
+            if (route is null) throw new RouteNotFoundException("Route Not Found Or Not Available");
+
+            var result = mapper.Map<RouteResultByIdDto>(route);
+            return result;
+
         }
-        public Task AddRouteAsync(RouteResultByIdDto route)
+        public async Task AddRouteAsync(RouteResultByIdDto route)
         {
-            throw new NotImplementedException();
+
+            var newRoute= mapper.Map<Route>(route);
+
+            await unitOfWork.GetRepository<Route>().AddAsync(newRoute);
+
+            var result = await unitOfWork.SaveChangesAsync();
+
+            if (result == 0) throw new AddingNewRouteBadRequestException("Route Is Not Added");
+
         }
 
-        public void UpdateRoute(RouteResultByIdDto route)
+        public async Task UpdateRoute(RouteResultByIdDto route)
         {
-            throw new NotImplementedException();
+            var result = mapper.Map<Route>(route);
+            unitOfWork.GetRepository<Route>().Update(result);
+            var resullt = await unitOfWork.SaveChangesAsync();
+            if (resullt == 0) throw new RouteNotFoundException("Route Not Updated");
         }
 
-        public void DeleteRoute(int routeId)
+        public async Task DeleteRouteAsync(int routeId)
         {
-            throw new NotImplementedException();
+            var route= await unitOfWork.GetRepository<Route>().GetByIdAsync(routeId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found Or Not Available");
+
+            unitOfWork.GetRepository<Route>().Delete(route);
+            var resullt = await unitOfWork.SaveChangesAsync();
+            if (resullt == 0) throw new RouteNotFoundException("Route Not Deleted");
         }
 
        
-        public Task<bool> RouteExistsAsync(Expression<Func<Route, bool>> predicate)
+        public async Task<bool> RouteExistsAsync(Expression<Func<Route, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await unitOfWork.GetRepository<Route>().ExistsAsync(predicate);
         }
 
        
