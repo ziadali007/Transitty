@@ -10,7 +10,8 @@ namespace Shared
     {
         public int TripId { get; set; }
         public int SeatId { get; set; }
-        public string CustomerName { get; set; }
+        public string SeatNumber { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
         public DateTime BookingTime { get; set; }
 
 

@@ -16,6 +16,12 @@ namespace Services.MappingProfiles
             CreateMap<Route, RouteResultDto>().ReverseMap();
 
             CreateMap<Route, RouteResultByIdDto>().ReverseMap();
+
+            CreateMap<Route, RouteBusStopResultByIdDto>()
+                .ForMember(dest => dest.RouteStops, opt => opt.MapFrom(src =>
+                src.RouteStops.OrderBy(rs => rs.StopOrder)));
+
+
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,19 +7,14 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class RouteResultByIdDto
+    public class RouteBusStopResultByIdDto
     {
-        [Required]
         public int RouteId { get; set; }
-        [Required]
-        [Length(minimumLength:5,maximumLength:30)]
-
         public string RouteName { get; set; }
-        [Required]
+        
         public string StartPoint { get; set; }
-        [Required]
         public string EndPoint { get; set; }
 
-
+        public IEnumerable<RouteStopDto> RouteStops { get; set; }
     }
 }

@@ -33,19 +33,47 @@ namespace Services
 
         public async Task AddBusAsync(BusResultByIdDto bus)
         {
+            var route = await unitOfWork.GetRepository<Route>().GetByIdAsync(bus.RouteId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found");
+
+
+            if (bus.Seats.Count() > bus.Capacity) throw new SeatsExceedsBusCapacityException("Number of seats exceeds bus capacity.");
+
             var newBus = mapper.Map<Bus>(bus);
             await unitOfWork.GetRepository<Bus>().AddAsync(newBus);
             var result = await unitOfWork.SaveChangesAsync();
             if (result == 0) throw new AddingNewBusBadRequestException("Bus Is Not Added");
 
+            foreach (var seatDto in bus.Seats)
+            {
+                var seat = mapper.Map<Seat>(seatDto);
+                seat.BusId=newBus.BusId;
+                await unitOfWork.GetRepository<Seat>().AddAsync(seat);
+            }
+            
+            var result2 = await unitOfWork.SaveChangesAsync();
+            if (result2 == 0) throw new AddingNewBusBadRequestException("Seats Are Not Added");
+
         }
 
         public async Task UpdateBus(BusResultByIdDto bus)
         {
+            var route = await unitOfWork.GetRepository<Route>().GetByIdAsync(bus.RouteId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found");
             var result = mapper.Map<Bus>(bus);
             unitOfWork.GetRepository<Bus>().Update(result);
             var resullt=await unitOfWork.SaveChangesAsync();
             if (resullt == 0) throw new BusNotFoundException("Bus Not Updated");
+
+            foreach (var seatDto in bus.Seats)
+            {
+                var seat = mapper.Map<Seat>(seatDto);
+                seat.BusId = bus.BusId;
+                await unitOfWork.GetRepository<Seat>().AddAsync(seat);
+            }
+
+            var result2 = await unitOfWork.SaveChangesAsync();
+            if (result2 == 0) throw new AddingNewBusBadRequestException("Seats Are Not Added");
         }
 
         public async Task DeleteBusAsync(int busId)

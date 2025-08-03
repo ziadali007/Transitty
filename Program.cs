@@ -1,11 +1,14 @@
 
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 using Persistence.Repositories;
 using Presistence.Data;
 using Services;
 using Services.Abstractions;
+using Services.MappingProfiles;
+using System.Reflection.Metadata;
 namespace Transitty
 {
     public class Program
@@ -21,7 +24,8 @@ namespace Transitty
             builder.Services.AddDbContext<TransityDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -34,6 +38,7 @@ namespace Transitty
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 

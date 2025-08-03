@@ -13,7 +13,7 @@ namespace Services.Abstractions
     {
         Task<IEnumerable<RouteResultDto>> GetAllRoutesAsync();
 
-        Task<RouteResultByIdDto?> GetRouteByIdAsync(int id);
+        Task<RouteBusStopResultByIdDto?> GetRouteByIdAsync(int id);
 
         Task AddRouteAsync(RouteResultByIdDto route);
 

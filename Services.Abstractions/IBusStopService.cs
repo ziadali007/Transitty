@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using RouteStopDto = Shared.RouteStopDto;
 
 namespace Services.Abstractions
 {
@@ -15,7 +16,7 @@ namespace Services.Abstractions
 
         Task<BusStopResultByIdDto?> GetBusStopByIdAsync(int id);
 
-        Task AddBusStopAsync(BusStopResultByIdDto BusStop);
+        Task AddBusStopAsync(AddBusStopToRouteDto BusStop);
 
         Task UpdateBusStop(BusStopResultByIdDto BusStop);
 

@@ -16,7 +16,9 @@ namespace Services.MappingProfiles
         {
             CreateMap<Bus,BusResultDto>().ReverseMap();
 
-            CreateMap<Bus, BusResultByIdDto>().ReverseMap();
+            CreateMap<SeatResultDto, Seat>();
+            CreateMap<BusResultByIdDto, Bus>();
+
         }
     }
 }
