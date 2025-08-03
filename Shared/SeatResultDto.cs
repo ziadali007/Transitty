@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,8 @@ namespace Shared
 {
     public class SeatResultDto
     {
-        public int SeatId { get; set; }
-        public int BusId { get; set; }
-        public String SeatNumber { get; set; }
+        public string SeatNumber { get; set; } = string.Empty;
         public bool IsWindow { get; set; }
+
     }
 }

@@ -31,6 +31,8 @@ namespace Services
         }
         public async Task AddTripAsync(TripResultByIdDto trip)
         {
+            var route = await unitOfWork.GetRepository<Route>().GetByIdAsync(trip.RouteId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found");
             var newTrip= mapper.Map<Trip>(trip);
             await unitOfWork.GetRepository<Trip>().AddAsync(newTrip);
             var result = await unitOfWork.SaveChangesAsync();
@@ -38,6 +40,8 @@ namespace Services
         }
         public async Task UpdateTrip(TripResultByIdDto trip)
         {
+            var route = await unitOfWork.GetRepository<Route>().GetByIdAsync(trip.RouteId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found");
             var result = mapper.Map<Trip>(trip);
             unitOfWork.GetRepository<Trip>().Update(result);
             var resullt = unitOfWork.SaveChangesAsync();
@@ -78,7 +82,7 @@ namespace Services
 
         }
 
-        public async Task<TicketResultDto> BookSeatAsync(int tripId, int seatId, string customerName)
+        public async Task<TicketResultDto> BookSeatAsync(int tripId, int seatId, string seatNumber, string customerName)
         {
             var trip=await unitOfWork.GetRepository<Trip>().GetByIdAsync(tripId);
             if (trip is null) throw new TripNotFoundException("Trip Not Found");
@@ -94,6 +98,7 @@ namespace Services
             {
                 TripId = tripId,
                 SeatId = seatId,
+                SeatNumber = seatNumber,
                 CustomerName = customerName,
                 BookingTime = DateTime.UtcNow
             };

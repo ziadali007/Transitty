@@ -16,7 +16,7 @@ namespace Presistence.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyReference).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyRef).Assembly);
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<RouteStop> RouteStops { get; set; }

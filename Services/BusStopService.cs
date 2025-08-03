@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using RouteStopDto = Shared.RouteStopDto;
 
 namespace Services
 {
@@ -29,10 +30,17 @@ namespace Services
             var result = mapper.Map<BusStopResultByIdDto>(busStop);
             return result;
         }
-        public async Task AddBusStopAsync(BusStopResultByIdDto BusStop)
+        public async Task AddBusStopAsync(AddBusStopToRouteDto BusStop)
         {
+            var route=await unitOfWork.GetRepository<Route>().GetByIdAsync(BusStop.RouteId);
+            if (route is null) throw new RouteNotFoundException("Route Not Found");
             var busStop = mapper.Map<BusStop>(BusStop);
             await unitOfWork.GetRepository<BusStop>().AddAsync(busStop);
+            var result1 = await unitOfWork.SaveChangesAsync();
+            if (result1 == 0) throw new AddingNewBusStopBadRequestException("BusStop Is Not Added");
+
+            var routeStop = mapper.Map<RouteStop>((busStop.StopId,BusStop));
+            await unitOfWork.GetRepository<RouteStop>().AddAsync(routeStop);
             var result= await unitOfWork.SaveChangesAsync();
             if(result == 0) throw new AddingNewBusStopBadRequestException("Bus Is Not Added");
         }

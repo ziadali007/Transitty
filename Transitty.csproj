@@ -10,49 +10,29 @@
 
   <ItemGroup>
     <Compile Remove="Domain\**" />
-    <Compile Remove="Persistence\bin\**" />
-    <Compile Remove="Persistence\Data\**" />
-    <Compile Remove="Persistence\obj\**" />
+    <Compile Remove="Persistence\**" />
     <Compile Remove="Presentation\**" />
-    <Compile Remove="Services.Abstractions\bin\**" />
-    <Compile Remove="Services.Abstractions\obj\**" />
+    <Compile Remove="Services.Abstractions\**" />
     <Compile Remove="Services\**" />
-    <Compile Remove="Shared\bin\**" />
-    <Compile Remove="Shared\obj\**" />
+    <Compile Remove="Shared\**" />
     <Content Remove="Domain\**" />
-    <Content Remove="Persistence\bin\**" />
-    <Content Remove="Persistence\Data\**" />
-    <Content Remove="Persistence\obj\**" />
+    <Content Remove="Persistence\**" />
     <Content Remove="Presentation\**" />
-    <Content Remove="Services.Abstractions\bin\**" />
-    <Content Remove="Services.Abstractions\obj\**" />
+    <Content Remove="Services.Abstractions\**" />
     <Content Remove="Services\**" />
-    <Content Remove="Shared\bin\**" />
-    <Content Remove="Shared\obj\**" />
+    <Content Remove="Shared\**" />
     <EmbeddedResource Remove="Domain\**" />
-    <EmbeddedResource Remove="Persistence\bin\**" />
-    <EmbeddedResource Remove="Persistence\Data\**" />
-    <EmbeddedResource Remove="Persistence\obj\**" />
+    <EmbeddedResource Remove="Persistence\**" />
     <EmbeddedResource Remove="Presentation\**" />
-    <EmbeddedResource Remove="Services.Abstractions\bin\**" />
-    <EmbeddedResource Remove="Services.Abstractions\obj\**" />
+    <EmbeddedResource Remove="Services.Abstractions\**" />
     <EmbeddedResource Remove="Services\**" />
-    <EmbeddedResource Remove="Shared\bin\**" />
-    <EmbeddedResource Remove="Shared\obj\**" />
+    <EmbeddedResource Remove="Shared\**" />
     <None Remove="Domain\**" />
-    <None Remove="Persistence\bin\**" />
-    <None Remove="Persistence\Data\**" />
-    <None Remove="Persistence\obj\**" />
+    <None Remove="Persistence\**" />
     <None Remove="Presentation\**" />
-    <None Remove="Services.Abstractions\bin\**" />
-    <None Remove="Services.Abstractions\obj\**" />
+    <None Remove="Services.Abstractions\**" />
     <None Remove="Services\**" />
-    <None Remove="Shared\bin\**" />
-    <None Remove="Shared\obj\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Services.Abstractions\IRouteService.cs" />
+    <None Remove="Shared\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,10 +46,6 @@
   <ItemGroup>
     <ProjectReference Include="Persistence\Persistence.csproj" />
     <ProjectReference Include="Presentation\Presentation.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services.Abstractions\" />
   </ItemGroup>
 
 </Project>

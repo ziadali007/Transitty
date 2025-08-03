@@ -20,6 +20,6 @@ namespace Services.Abstractions
 
         Task<IEnumerable<SeatResultDto>> GetAvailableSeatsAsync(int tripId);
 
-        Task<TicketResultDto> BookSeatAsync(int tripId, int seatId, string customerName);
+        Task<TicketResultDto> BookSeatAsync(int tripId, int seatId, string seatNumber, string customerName);
     }
 }

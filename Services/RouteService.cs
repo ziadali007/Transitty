@@ -23,12 +23,12 @@ namespace Services
 
         }
 
-        public async Task<RouteResultByIdDto?> GetRouteByIdAsync(int id)
+        public async Task<RouteBusStopResultByIdDto?> GetRouteByIdAsync(int id)
         {
             var route =await unitOfWork.GetRepository<Route>().GetByIdAsync(id);
             if (route is null) throw new RouteNotFoundException("Route Not Found Or Not Available");
 
-            var result = mapper.Map<RouteResultByIdDto>(route);
+            var result = mapper.Map<RouteBusStopResultByIdDto>(route);
             return result;
 
         }

@@ -19,6 +19,13 @@ namespace Services.MappingProfiles
 
             CreateMap<EmployeeResultDto, Employee>()
                 .ForMember(dest => dest.EmployeeRole, opt => opt.MapFrom(src => Enum.Parse<EmployeeRole>(src.Role)));
+
+            CreateMap<Employee, EmployeeResultByIdDto>()
+              .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.EmployeeRole.ToString()));
+
+            CreateMap<EmployeeResultByIdDto, Employee>()
+                .ForMember(dest => dest.EmployeeRole, opt => opt.MapFrom(src => Enum.Parse<EmployeeRole>(src.Role)));
+
         }
     }
 }
