@@ -1,4 +1,4 @@
-# 🚌 City Bus Management System
+# 🚌 Bus Travel Management System
 
 A full-featured ASP.NET Core Web API designed to manage city-wide public transportation services. This system enables administrators to handle bus routes, schedules, bookings, and employee logistics while providing customers with access to available trips and seat bookings — all secured via JWT-based user authentication.
 
