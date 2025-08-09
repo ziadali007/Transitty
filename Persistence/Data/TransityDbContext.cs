@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
 using Persistence;
+using Domain.Models.Identity;
 namespace Presistence.Data
 {
     public class TransityDbContext : DbContext
@@ -33,5 +34,7 @@ namespace Presistence.Data
         public DbSet<Seat> Seats { get; set; }
 
         public DbSet<Ticket> Ticket { get; set; }
+
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }

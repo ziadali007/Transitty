@@ -80,6 +80,7 @@ namespace Persistence.Repositories
                    .Include(b => b.Route)
                    .Include(b => b.Trips)
                    .Include(b => b.StopTimings)
+                   .Include(b=>b.Seats)
                    .AsNoTracking()
                    .FirstOrDefaultAsync(b => b.BusId == id) as T;
             }

@@ -19,5 +19,7 @@ namespace Services.Abstractions
         IBusStopService BusStopService { get; }
 
         IScheduleService ScheduleService { get; }
+
+        IAuthService AuthService { get; }
     }
 }
