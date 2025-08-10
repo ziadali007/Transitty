@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ServiceManager(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager,IOptions<JwtOptions> options) : IServiceManager
+    public class ServiceManager(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager,IOptions<JwtOptions> options,IConfiguration configuration) : IServiceManager
     {
        
         public IRouteService RouteService { get; } = new RouteService(mapper, unitOfWork);
@@ -30,5 +30,7 @@ namespace Services
         public IScheduleService ScheduleService { get; } = new ScheduleService(mapper, unitOfWork);
 
         public IAuthService AuthService { get; } = new AuthService(userManager,options);
+
+        public IPaymentService PaymentService { get; } = new PaymentService(unitOfWork, mapper, configuration);
     }
 }

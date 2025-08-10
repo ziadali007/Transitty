@@ -21,5 +21,7 @@ namespace Services.Abstractions
         IScheduleService ScheduleService { get; }
 
         IAuthService AuthService { get; }
+
+        IPaymentService PaymentService { get; }
     }
 }

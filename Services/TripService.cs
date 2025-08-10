@@ -66,7 +66,9 @@ namespace Services
         {
             var trip=await unitOfWork.GetRepository<Trip>().GetByIdAsync(tripId);
             if (trip is null) throw new TripNotFoundException("Trip Not Found Or Not Available");
-            var bus= await unitOfWork.GetRepository<Bus>().GetByIdAsync(trip.BusId);
+            if (trip.BusId == null)
+                throw new BusNotFoundException("Trip has no assigned bus");
+            var bus= await unitOfWork.GetRepository<Bus>().GetByIdAsync(trip.BusId.Value);
             if (bus is null) throw new BusNotFoundException("Bus Not Found Or Not Available");
             var seats = await unitOfWork.GetRepository<Seat>().FindAsync(s => s.BusId == bus.BusId);
 
@@ -100,6 +102,7 @@ namespace Services
                 SeatId = seatId,
                 SeatNumber = seatNumber,
                 CustomerName = customerName,
+                Price=trip.TicketPrice,
                 BookingTime = DateTime.UtcNow
             };
 

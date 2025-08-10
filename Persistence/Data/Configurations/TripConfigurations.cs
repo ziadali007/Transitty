@@ -35,6 +35,9 @@ namespace Presistence.Data.Configurations
                 .WithMany(r => r.Trips)
                 .HasForeignKey(t => t.RouteId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(t => t.TicketPrice)
+                   .HasColumnType("decimal(10,2)");
         }
     }
 }

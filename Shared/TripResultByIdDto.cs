@@ -23,7 +23,8 @@ namespace Shared
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        
+        [Required]
+        public decimal TicketPrice { get; set; }
 
 
 
