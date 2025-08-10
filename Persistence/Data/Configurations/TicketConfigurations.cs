@@ -22,6 +22,9 @@ namespace Persistence.Data.Configurations
                 .WithMany(s=>s.Tickets)
                 .HasForeignKey(t => t.SeatId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(t => t.Price)
+                  .HasColumnType("decimal(10,2)");
         }
     }
 }

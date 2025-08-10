@@ -10,20 +10,22 @@ namespace Domain.Models
     {
         public int TripId { get; set; }
 
-        public int BusId { get; set; }
-        public Bus Bus { get; set; }
+        public int? BusId { get; set; }
+        public Bus? Bus { get; set; }
 
-        public int RouteId { get; set; }
-        public Route Route { get; set; }
+        public int? RouteId { get; set; }
+        public Route? Route { get; set; }
 
         public int DriverId { get; set; }
         public Employee Driver { get; set; }
 
-        public int ConductorId { get; set; }
-        public Employee Conductor { get; set; }
+        public int? ConductorId { get; set; }
+        public Employee? Conductor { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+
+        public decimal TicketPrice { get; set; }
 
         public IEnumerable<Ticket>? Tickets { get; set; }
     }

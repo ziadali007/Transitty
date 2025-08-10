@@ -21,5 +21,11 @@ namespace Domain.Models
         public string CustomerName { get; set; }
 
         public DateTime BookingTime { get; set; }
+
+        public string? ClientSecret { get; set; }
+
+        public string? PaymentIntentId { get; set; }
+
+        public decimal Price { get;set; }
     }
 }

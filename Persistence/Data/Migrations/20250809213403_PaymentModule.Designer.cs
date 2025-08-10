@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Presistence.Data;
 
@@ -11,9 +12,11 @@ using Presistence.Data;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(TransityDbContext))]
-    partial class TransityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250809213403_PaymentModule")]
+    partial class PaymentModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,10 +329,10 @@ namespace Persistence.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TripId"));
 
-                    b.Property<int?>("BusId")
+                    b.Property<int>("BusId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ConductorId")
+                    b.Property<int>("ConductorId")
                         .HasColumnType("int");
 
                     b.Property<int>("DriverId")
@@ -338,7 +341,7 @@ namespace Persistence.Data.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RouteId")
+                    b.Property<int>("RouteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
@@ -463,12 +466,14 @@ namespace Persistence.Data.Migrations
                     b.HasOne("Domain.Models.Bus", "Bus")
                         .WithMany("Trips")
                         .HasForeignKey("BusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.Employee", "Conductor")
                         .WithMany("TripsAsConductor")
                         .HasForeignKey("ConductorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.Employee", "Driver")
                         .WithMany("TripsAsDriver")
@@ -479,7 +484,8 @@ namespace Persistence.Data.Migrations
                     b.HasOne("Domain.Models.Route", "Route")
                         .WithMany("Trips")
                         .HasForeignKey("RouteId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Bus");
 
